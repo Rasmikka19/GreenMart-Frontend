@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import axios from 'axios';
+// 1. CHANGE THIS IMPORT to use your custom instance
+import axios from '../utils/axios'; 
 import { CartContext } from '../context/CartContext';
 import { ShoppingBag, ShieldCheck, Truck, ArrowLeft, Minus, Plus, Leaf } from "lucide-react";
 
@@ -12,7 +13,9 @@ const ProductDetail = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/product/${id}`);
+        // 2. REMOVE the localhost URL. Just use the endpoint.
+        // This now calls: https://greenmart-backend-ttoh.onrender.com/api/product/${id}
+        const res = await axios.get(`/product/${id}`);
         setProduct(res.data);
       } catch (err) {
         console.error("Vault Fetch Error:", err);

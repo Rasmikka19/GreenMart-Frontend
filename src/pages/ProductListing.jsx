@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import axios from 'axios';
+import axios from '../utils/axios';
 import ProductCard from '../components/ProductCard';
 import { ProductContext } from '../context/ProductContext';
 import { LayoutGrid, Leaf, ShoppingBasket, Wind, Snowflake, Coffee, Croissant, Wheat } from 'lucide-react';
@@ -9,14 +9,20 @@ const ProductListing = () => {
   const [products, setProducts] = useState([]);
   const [category, setCategory] = useState('All');
 
-  useEffect(() => {
-    const getProducts = async () => {
-      // Endpoint matches index.js route /api/product
-      const res = await axios.get('http://localhost:5000/api/product/list'); 
+ useEffect(() => {
+  const fetchProducts = async () => {
+    try {
+      // 2. Use the instance. Just provide the endpoint, not the full URL.
+      // This will automatically use 'https://greenmart-backend-ttoh.onrender.com/api/product/list'
+      const res = await axios.get('/product/list'); 
+      
       setProducts(res.data.products || res.data);
-    };
-    getProducts();
-  }, []);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+  };
+  fetchProducts();
+}, []);
 
   // Categories To Shop By
   const categories = [
