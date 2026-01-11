@@ -33,8 +33,6 @@ React Router
 
 Axios
 
-Context API / State Management
-
 Backend
 
 Node.js
